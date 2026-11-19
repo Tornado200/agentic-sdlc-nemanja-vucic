@@ -41,14 +41,19 @@ while IFS= read -r puml; do
 
     # Generate SVG
     echo "  → $puml"
-    java -Dplantuml.allowincludeurl=true -jar "$PLANTUML_JAR" -tsvg "$puml"
+    GRAPHVIZ_DOT=/usr/bin/dot java -Dplantuml.allowincludeurl=true -jar "$PLANTUML_JAR" -tsvg "$puml"
 
     svg="${puml%.puml}.svg"
-    if [ -f "$svg" ] && [ -s "$svg" ]; then
-        git add "$svg"
-        echo "    ✅ $svg"
-    else
-        echo "    ❌ Failed to generate: $svg"
-        exit 1
+if [ -f "$svg" ] && [ -s "$svg" ]; then
+    # Ensure generated SVG ends with a newline
+    if [ "$(tail -c 1 "$svg" | wc -l)" -eq 0 ]; then
+        printf '\n' >> "$svg"
     fi
+
+    git add "$svg"
+    echo "    ✅ $svg"
+else
+    echo "    ❌ Failed to generate: $svg"
+    exit 1
+fi
 done <<< "$STAGED"

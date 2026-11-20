@@ -27,3 +27,26 @@ mission snapshots.
 - State is lost on restart unless a snapshot is saved
 - Module boundaries must be maintained as the code grows
 - A real database can be added later behind the grid/state module
+
+## ADR-002: CLI with argparse and Standard Library Only
+
+**Status:** Accepted
+
+**Context:**
+The system needs a simple, consistent command-line interface for user
+interaction. External CLI libraries add dependencies and complexity.
+
+**Decision:**
+Use Python's built-in `argparse` module for CLI parsing. Rely only on
+Python standard library for core functionality.
+
+**Rationale:**
+- `argparse` is mature, well-documented, and part of standard library
+- No external dependencies reduces setup complexity
+- Standard library ensures compatibility and longevity
+- Simple interface matches kata scope
+
+**Consequences:**
+- CLI features limited to `argparse` capabilities
+- No advanced CLI features without custom implementation
+- Consistent with minimal dependencies constraint

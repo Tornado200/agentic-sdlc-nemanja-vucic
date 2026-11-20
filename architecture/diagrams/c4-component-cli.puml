@@ -1,0 +1,31 @@
+@startuml c4-component-cli
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Mars Rover CLI Application - Component Diagram
+
+Container_Boundary(cli_app, "Mars Rover CLI Application") {
+    Component(command_interface, "Command Interface", "argparse/Python", "Parses CLI arguments\nDisplays final position")
+    Component(command_parser, "Command Parser", "Python module", "Validates L/R/M command sequences\nConverts to operations")
+    Component(rover_navigation, "Rover Navigation", "Python module", "Calculates movements and turns\nManages position and heading")
+    Component(grid_management, "Grid Management", "Python module", "Defines grid boundaries\nDetects obstacles (initial requirement)")
+    Component(mission_state, "Mission State", "Python module", "Maintains rover position/heading\nState lost on program exit")
+}
+
+Rel(command_interface, command_parser, "Passes command string", "string")
+Rel(command_parser, rover_navigation, "Executes parsed operations", "operation list")
+Rel(rover_navigation, grid_management, "Validates movement positions", "position check")
+Rel(rover_navigation, mission_state, "Updates current position", "state update")
+Rel(mission_state, command_interface, "Provides final position", "formatted result")
+
+note bottom of mission_state
+State maintained throughout
+command sequence execution
+end note
+
+note right of grid_management
+Owns grid dimensions,
+boundaries, and
+obstacle configuration
+end note
+
+@enduml

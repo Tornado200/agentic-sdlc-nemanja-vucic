@@ -3,7 +3,7 @@ set -e
 
 # PlantUML pre-commit hook: generates SVGs for staged .puml files
 
-PLANTUML_JAR="$HOME/.local/share/plantuml/plantuml.jar"
+PLANTUML_JAR="$HOME/tools/plantuml/plantuml-1.2026.10.jar"
 
 # Get staged .puml files
 STAGED=$(git diff --cached --name-only --diff-filter=AM | grep '\.puml$' || true)

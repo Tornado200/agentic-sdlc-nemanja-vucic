@@ -1,0 +1,28 @@
+@startuml deployment
+title Mars Rover - Deployment Diagram
+
+node "Developer Laptop" {
+  folder "Project Workspace" {
+    file "mars_rover/" as src
+    file "pyproject.toml" as config
+    file ".venv/" as venv
+  }
+
+  component "Python 3.12 Interpreter" as python
+
+  artifact "Mars Rover CLI Application" as app
+}
+
+src -right-> config : "Project configuration"
+config -right-> venv : "Dependencies"
+venv -down-> python : "Virtual environment"
+python -down-> app : "Executes"
+
+note right of app
+Single executable
+No external services
+No network dependencies
+Local execution only
+end note
+
+@enduml

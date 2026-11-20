@@ -1,0 +1,42 @@
+@startuml runtime-invalid-command
+title Mars Rover - Invalid Command Handling
+
+actor "Mission Operator" as Operator
+participant "Command Interface" as CLI
+participant "Command Parser" as Parser
+participant "Rover Navigation" as Navigation
+participant "Grid Management" as Grid
+participant "Mission State" as State
+
+Operator -> CLI: Execute: mars_rover --commands "LMXRM" --position "1 2 N" --grid "5 5"
+activate CLI
+
+CLI -> CLI: Parse CLI arguments
+CLI -> Parser: parse_command_string("LMXRM")
+activate Parser
+
+Parser -> Parser: Validate command characters
+Parser -> Parser: **ERROR**: Invalid character 'X' detected
+Parser --> CLI: **Raise ValidationError**: "Invalid command 'X'"
+deactivate Parser
+
+CLI -> CLI: Handle validation error
+CLI -> CLI: Format error message
+CLI --> Operator: "Error: Invalid command 'X' in sequence"
+deactivate CLI
+
+note right of Parser
+Valid commands: L, R, M only
+Sequence "LMXRM" contains invalid 'X'
+Command processing stops immediately
+No navigation attempted
+end note
+
+note left of Operator
+Error occurs during parsing phase
+No state changes occur
+System returns to ready state
+for next command sequence
+end note
+
+@enduml

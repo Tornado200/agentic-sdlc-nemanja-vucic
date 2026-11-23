@@ -4,8 +4,8 @@ This course builds a set of cooperating agents that automate the software develo
 
 ## Course Progress
 
-- [ ] Module 1: Git — workflow agent
-- [ ] Module 2: Software Architecture — arc42 design agent
+- [x] Module 1: Git — workflow agent
+- [x] Module 2: Software Architecture — arc42 design agent
 - [ ] Module 3: Software Requirements — user story derivation agent
 - [ ] Module 4: CI/CD — deployment pipeline agent
 - [ ] Module 5: TDD/BDD — multi-agent test system

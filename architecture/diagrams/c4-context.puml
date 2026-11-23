@@ -1,0 +1,17 @@
+@startuml c4-context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title Mars Rover - System Context Diagram
+
+Person(operator, "Mission Operator", "Sends command sequences (e.g., L, R, M) and monitors rover position and mission status.")
+Person(student, "Course Student", "Implements and extends the system as part of agentic SDLC coursework.")
+System(mars_rover, "Mars Rover System", "Parses movement commands, manages orientation and grid coordinates, and tracks terrain/mission state.")
+System_Ext(telemetry_sim, "Ground Control & Telemetry", "External mission control interface or terrain simulation environment receiving status reports.")
+System_Ext(software_factory, "Software Factory Agents", "Automated agents that analyze, test, and evolve the rover system.")
+
+Rel(operator, mars_rover, "Sends command sequences and queries status", "CLI / API")
+Rel(mars_rover, telemetry_sim, "Publishes position updates and mission logs", "Telemetry / Events")
+Rel(student, mars_rover, "Develops, tests, and extends", "Development Environment")
+Rel(software_factory, mars_rover, "Analyzes, generates tests, and validates", "Automated SDLC Tools")
+
+@enduml

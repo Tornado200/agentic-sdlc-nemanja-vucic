@@ -1,0 +1,65 @@
+@startuml runtime-boundary-violation
+title Mars Rover - Boundary Violation
+
+actor "Mission Operator" as Operator
+participant "Command Interface" as CLI
+participant "Command Parser" as Parser
+participant "Rover Navigation" as Navigation
+participant "Grid Management" as Grid
+participant "Mission State" as State
+
+Operator -> CLI: Execute: mars_rover --commands "M" --position "0 2 W" --grid "3 3"
+activate CLI
+
+CLI -> CLI: Parse CLI arguments
+CLI -> Parser: parse_command_string("M")
+activate Parser
+
+Parser -> Parser: Validate command characters
+Parser -> Parser: Convert to operations: [MoveForward]
+Parser --> CLI: Return operations list
+deactivate Parser
+
+CLI -> Navigation: execute_operations(operations)
+activate Navigation
+
+Navigation -> Navigation: Calculate next position: (-1, 2, W)
+Navigation -> Grid: can_move_to((-1, 2), W)
+activate Grid
+
+Grid -> Grid: Check boundaries (3x3 grid: 0..2)
+Grid -> Grid: **ERROR**: x = -1 outside valid range 0..2
+Grid --> Navigation: (False, "Position (-1, 2) outside grid bounds (3x3)")
+deactivate Grid
+
+Navigation -> Navigation: **STOP execution**
+Navigation --> CLI: **Raise BoundaryError**: "Position (-1, 2) outside grid bounds (3x3)"
+deactivate Navigation
+
+CLI -> State: get_current_position()
+activate State
+State --> CLI: (0, 2, "W")
+deactivate State
+
+CLI -> CLI: Format error with current position
+CLI --> Operator: "Error: Position (-1, 2) outside grid bounds (3x3)\nCurrent position: 0 2 W"
+deactivate CLI
+
+note right of Grid
+Grid: 3x3 (0-2, 0-2)
+Starting: (0,2,W)
+Command: M
+Next position: (-1,2) → INVALID
+Boundary check fails before obstacle check
+State remains unchanged
+end note
+
+note left of Navigation
+Boundary violation detected
+during first operation
+No state mutations occur
+Execution stops immediately
+Error includes diagnostic info
+end note
+
+@enduml

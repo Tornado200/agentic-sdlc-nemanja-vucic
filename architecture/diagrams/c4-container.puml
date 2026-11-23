@@ -1,0 +1,21 @@
+@startuml c4-container
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title Mars Rover - Container Diagram
+
+Person(operator, "Mission Operator", "Sends command sequences and monitors rover position")
+
+System_Boundary(mars_rover, "Mars Rover System") {
+    Container(cli_app, "Mars Rover CLI Application", "Python 3.12", "Single executable for rover control\nParses commands, navigates grid, manages state")
+}
+
+Rel(operator, cli_app, "Sends command sequences\nReceives position updates", "CLI commands / text output")
+
+note right of cli_app
+Modular monolith:
+One Python application
+Internal components shown
+in Component diagram
+end note
+
+@enduml

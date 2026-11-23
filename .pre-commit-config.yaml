@@ -40,6 +40,12 @@ repos:
 
   - repo: local
     hooks:
+      - id: plantuml-validation
+        name: PlantUML Validation
+        entry: bash scripts/hooks/validate-plantuml.sh
+        language: system
+        files: '\.puml$'
+        pass_filenames: false
       - id: commit-msg-format
         name: Commit message format
         entry: scripts/hooks/check-commit-msg.sh

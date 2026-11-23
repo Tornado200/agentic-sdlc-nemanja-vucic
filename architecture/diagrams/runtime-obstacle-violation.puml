@@ -1,0 +1,78 @@
+@startuml runtime-obstacle-violation
+title Mars Rover - Obstacle Violation
+
+actor "Mission Operator" as Operator
+participant "Command Interface" as CLI
+participant "Command Parser" as Parser
+participant "Rover Navigation" as Navigation
+participant "Grid Management" as Grid
+participant "Mission State" as State
+
+Operator -> CLI: Execute: mars_rover --commands "MMMM" --position "0 0 N" --grid "3 3"
+activate CLI
+
+CLI -> CLI: Parse CLI arguments\nGrid initialized with obstacles at (0,2), (1,2)
+CLI -> Parser: parse_command_string("MMMM")
+activate Parser
+
+Parser -> Parser: Validate command characters
+Parser -> Parser: Convert to operations: [MoveForward, MoveForward, MoveForward, MoveForward]
+Parser --> CLI: Return operations list
+deactivate Parser
+
+CLI -> Navigation: execute_operations(operations)
+activate Navigation
+
+Navigation -> Navigation: Calculate next position: (0, 1, N)
+Navigation -> Grid: can_move_to((0, 1), N)
+activate Grid
+Grid -> Grid: Check boundaries (3x3 grid): OK
+Grid -> Grid: Check obstacles (0,2;1,2): No obstacle
+Grid --> Navigation: (True, None)
+deactivate Grid
+
+Navigation -> State: set_current_position((0, 1), N)
+activate State
+State -> State: Update rover state to (0, 1, N)
+State --> Navigation: OK
+deactivate State
+
+Navigation -> Navigation: Calculate next position: (0, 2, N)
+Navigation -> Grid: can_move_to((0, 2), N)
+activate Grid
+Grid -> Grid: Check boundaries (3x3 grid): OK
+Grid -> Grid: Check obstacles (0,2;1,2): **OBSTACLE at (0,2)**
+Grid --> Navigation: (False, "Movement blocked by obstacle at (0, 2)")
+deactivate Grid
+
+Navigation -> Navigation: **STOP execution (failed operation)**
+Navigation --> CLI: **Raise ObstacleError**: "Movement blocked by obstacle at (0, 2)"
+deactivate Navigation
+
+CLI -> State: get_current_position()
+activate State
+State --> CLI: (0, 1, N)
+deactivate State
+
+CLI -> CLI: Format error with current position
+CLI --> Operator: "Error: Movement blocked by obstacle at (0, 2)\nCurrent position: 0 1 N"
+deactivate CLI
+
+note right of Grid
+Grid: 3x3 (0-2, 0-2)
+Obstacles: (0,2), (1,2)
+Starting: (0,0,N)
+Commands: M M M M
+First move: (0,0)→(0,1) **SUCCESS** (state updated)
+Second move: (0,1)→(0,2) **BLOCKED** (no state change)
+end note
+
+note left of Navigation
+**State consistency**:
+- Operation 1: Success → State updated to (0,1,N)
+- Operation 2: Failed → No state mutation
+- Failed operations do not roll back previous successes
+- Final state: Position after last successful operation
+end note
+
+@enduml

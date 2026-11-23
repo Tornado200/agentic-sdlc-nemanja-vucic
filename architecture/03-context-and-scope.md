@@ -59,6 +59,8 @@ Rel(software_factory, mars_rover, "Analyzes, generates tests, and validates", "A
 
 *Diagram file: [./diagrams/c4-context.puml](./diagrams/c4-context.puml)*
 
+![C4 Context Diagram](diagrams/c4-context.svg)
+
 ## 3.4 Key External Entities
 
 ### 3.4.1 Mission Operator

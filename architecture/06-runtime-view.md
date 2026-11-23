@@ -95,6 +95,8 @@ end note
 
 *Diagram file: [./diagrams/runtime-successful-movement.puml](./diagrams/runtime-successful-movement.puml)*
 
+![Runtime: successful movement](diagrams/runtime-successful-movement.svg)
+
 ### 6.3.3 Step-by-Step Analysis
 
 #### Phase 1: Command Parsing and Validation
@@ -184,6 +186,8 @@ end note
 ```
 
 *Diagram file: [./diagrams/runtime-invalid-command.puml](./diagrams/runtime-invalid-command.puml)*
+
+![Runtime: invalid command](diagrams/runtime-invalid-command.svg)
 
 ### 6.4.3 Error Handling Behavior
 
@@ -294,6 +298,8 @@ end note
 
 *Diagram file: [./diagrams/runtime-obstacle-violation.puml](./diagrams/runtime-obstacle-violation.puml)*
 
+![Runtime: obstacle violation](diagrams/runtime-obstacle-violation.svg)
+
 ### 6.5.3 State Consistency in Partial Execution
 
 #### Key Principle
@@ -388,6 +394,8 @@ end note
 ```
 
 *Diagram file: [./diagrams/runtime-boundary-violation.puml](./diagrams/runtime-boundary-violation.puml)*
+
+![Runtime: boundary violation](diagrams/runtime-boundary-violation.svg)
 
 ### 6.6.3 Boundary Validation Rules
 

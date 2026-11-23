@@ -43,6 +43,8 @@ end note
 
 *Diagram file: [./diagrams/c4-container.puml](./diagrams/c4-container.puml)*
 
+![C4 Container Diagram](diagrams/c4-container.svg)
+
 ### 5.2.2 Container Responsibilities
 
 | Container | Technology | Responsibilities |
@@ -90,6 +92,8 @@ end note
 ```
 
 *Diagram file: [./diagrams/c4-component-cli.puml](./diagrams/c4-component-cli.puml)*
+
+![C4 Component Diagram](diagrams/c4-component-cli.svg)
 
 ### 5.3.2 Component Descriptions
 

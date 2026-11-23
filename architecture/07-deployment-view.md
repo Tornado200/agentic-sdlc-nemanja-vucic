@@ -39,6 +39,8 @@ end note
 
 *Diagram file: [./diagrams/deployment.puml](./diagrams/deployment.puml)*
 
+![Deployment Diagram](diagrams/deployment.svg)
+
 ## 7.3 Deployment Environment
 
 ### 7.3.1 Hardware Requirements

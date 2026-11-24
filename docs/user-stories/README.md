@@ -74,16 +74,16 @@ extension explicitly deferred by the architecture.
 
 | ID | Title | Bounded context / component | Priority | Status |
 |----|-------|-----------------------------|----------|--------|
-| **ROVER-STORY-001** | Execute a valid command sequence and report the final position | All five components | **CORE** | Bundle drafted — awaiting approval |
-| **ROVER-STORY-002** | Validate command sequences and reject invalid input | Command Processing + Mission Console | **CORE** | Pending |
-| **ROVER-STORY-003** | Enforce grid spatial constraints (bounds + obstacles) and halt safely | Terrain/Grid + Navigation + State | **CORE** | Pending |
-| ROVER-STORY-004 | Configure mission parameters (grid size, start position, heading) with validation | Mission Console + Grid | SUP | Pending |
-| ROVER-STORY-005 | Provide a discoverable CLI with help, usage and exit codes | Mission Console (`argparse`) | SUP | Pending |
-| ROVER-STORY-006 | Report consistent, actionable error diagnostics with current-position context | Mission Console + error taxonomy | SUP | Pending |
-| ROVER-STORY-007 | Guarantee atomic per-operation state updates and last-valid-state preservation | Mission State + Navigation | SUP | Pending |
-| ROVER-STORY-008 | Handle empty and whitespace-only command sequences deterministically | Command Processing + Mission Console | SUP | Pending |
-| ROVER-STORY-009 | Persist and reload mission snapshots as JSON (optional) | Mission State (persistence) | BACKLOG | Pending |
-| ROVER-STORY-010 | Provide optional structured logging for execution tracing | Cross-cutting (Ch. 8.5) | SUP | Pending |
+| **ROVER-STORY-001** | Execute a valid command sequence and report the final position | All five components | **CORE** | Approved |
+| **ROVER-STORY-002** | Validate command sequences and reject invalid input | Command Processing + Mission Console | **CORE** | Approved |
+| **ROVER-STORY-003** | Enforce grid spatial constraints (bounds + obstacles) and halt safely | Terrain/Grid + Navigation + State | **CORE** | Approved |
+| ROVER-STORY-004 | Configure mission parameters (grid size, start position, heading) with validation | Mission Console + Grid | SUP | Approved |
+| ROVER-STORY-005 | Provide a discoverable CLI with help, usage and exit codes | Mission Console (`argparse`) | SUP | Approved |
+| ROVER-STORY-006 | Report consistent, actionable error diagnostics with current-position context | Mission Console + error taxonomy | SUP | Approved |
+| ROVER-STORY-007 | Guarantee atomic per-operation state updates and last-valid-state preservation | Mission State + Navigation | SUP | Approved |
+| ROVER-STORY-008 | Normalize whitespace in CLI mission inputs before validation | Mission Console + Command Processing | SUP | Approved |
+| ROVER-STORY-009 | Persist and reload mission snapshots as JSON (optional) | Mission State (persistence) | BACKLOG | Approved |
+| ROVER-STORY-010 | Provide optional structured logging for execution tracing | Cross-cutting (Ch. 8.5) | SUP | Approved |
 | ROVER-STORY-011 | Package the application for local deployment | Delivery (`pyproject`, entry point) | SUP | Pending |
 | ROVER-STORY-012 | Enforce automated quality gates (pytest, ruff, black, isort, ≥80% coverage) | Delivery / QA | SUP | Pending |
 | ROVER-STORY-013 | Provide BDD / property-based test scaffolding for runtime scenarios | QA / Software Factory Agents | SUP | Pending |
@@ -96,11 +96,12 @@ Updated as bundles are approved. A story counts as **Approved** only after expli
 
 | Metric | Count | Percentage |
 |--------|-------|------------|
-| **Core stories approved** | 0 / 3 | 0% |
-| **Supporting stories approved** | 0 / 12 | 0% |
-| **Total stories approved** | 0 / 15 | 0% |
-| Core bundles drafted | 1 / 3 | 33% |
-| Core value unlocked (by approval) | 0% | — |
+| **Core stories approved** | 3 / 3 | 100% |
+| **Supporting stories approved** | 7 / 12 | 58% |
+| **Total stories approved** | 10 / 15 | 67% |
+| Core bundles drafted | 3 / 3 | 100% |
+| Supporting bundles drafted | 7 / 12 | 58% |
+| Core value unlocked (by approval) | 100% | — |
 
 ## 6. Bundle Index
 
@@ -109,6 +110,15 @@ All bundles for the `ROVER` domain are maintained in [`rover.md`](./rover.md).
 | Story | Bundle section | Layers present |
 |-------|----------------|----------------|
 | ROVER-STORY-001 | [rover.md § ROVER-STORY-001](./rover.md#rover-story-001) | Original + FE + BE + INFRA |
+| ROVER-STORY-002 | [rover.md § ROVER-STORY-002](./rover.md#rover-story-002) | Original + FE + BE + INFRA |
+| ROVER-STORY-003 | [rover.md § ROVER-STORY-003](./rover.md#rover-story-003) | Original + FE + BE + INFRA |
+| ROVER-STORY-004 | [rover.md § ROVER-STORY-004](./rover.md#rover-story-004) | Original + FE + BE + INFRA |
+| ROVER-STORY-005 | [rover.md § ROVER-STORY-005](./rover.md#rover-story-005) | Original + FE + BE + INFRA |
+| ROVER-STORY-006 | [rover.md § ROVER-STORY-006](./rover.md#rover-story-006) | Original + FE + BE + INFRA |
+| ROVER-STORY-007 | [rover.md § ROVER-STORY-007](./rover.md#rover-story-007) | Original + FE + BE + INFRA |
+| ROVER-STORY-008 | [rover.md § ROVER-STORY-008](./rover.md#rover-story-008) | Original + FE + BE + INFRA |
+| ROVER-STORY-009 | [rover.md § ROVER-STORY-009](./rover.md#rover-story-009) | Original + FE + BE + INFRA |
+| ROVER-STORY-010 | [rover.md § ROVER-STORY-010](./rover.md#rover-story-010) | Original + FE + BE + INFRA |
 
 ## 7. Conventions
 

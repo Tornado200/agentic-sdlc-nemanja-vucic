@@ -84,11 +84,11 @@ extension explicitly deferred by the architecture.
 | ROVER-STORY-008 | Normalize whitespace in CLI mission inputs before validation | Mission Console + Command Processing | SUP | Approved |
 | ROVER-STORY-009 | Persist and reload mission snapshots as JSON (optional) | Mission State (persistence) | BACKLOG | Approved |
 | ROVER-STORY-010 | Provide optional structured logging for execution tracing | Cross-cutting (Ch. 8.5) | SUP | Approved |
-| ROVER-STORY-011 | Package the application for local deployment | Delivery (`pyproject`, entry point) | SUP | Pending |
-| ROVER-STORY-012 | Enforce automated quality gates (pytest, ruff, black, isort, ≥80% coverage) | Delivery / QA | SUP | Pending |
-| ROVER-STORY-013 | Provide BDD / property-based test scaffolding for runtime scenarios | QA / Software Factory Agents | SUP | Pending |
-| ROVER-STORY-014 | Support evolutionary terrain configuration without touching parser/navigation | Terrain/Grid | BACKLOG | Pending |
-| ROVER-STORY-015 | Support future multi-rover coordination on a shared grid | Navigation + State | BACKLOG | Pending |
+| ROVER-STORY-011 | Package the application for local deployment | Delivery (`pyproject`, entry point) | SUP | Backlog |
+| ROVER-STORY-012 | Enforce automated quality gates (pytest, ruff, black, isort, ≥80% coverage) | Delivery / QA | SUP | Backlog |
+| ROVER-STORY-013 | Provide BDD / property-based test scaffolding for runtime scenarios | QA / Software Factory Agents | SUP | Backlog |
+| ROVER-STORY-014 | Support evolutionary terrain configuration without touching parser/navigation | Terrain/Grid | BACKLOG | Backlog |
+| ROVER-STORY-015 | Support future multi-rover coordination on a shared grid | Navigation + State | BACKLOG | Backlog |
 
 ## 5. Pareto Completion Metrics
 
@@ -128,3 +128,5 @@ All bundles for the `ROVER` domain are maintained in [`rover.md`](./rover.md).
 - **Infrastructure:** `ROVER-INFRA-{N}.{X}`.
 - **Scenario:** `{STORY-ID}-S{N}` — every scenario is `GIVEN-WHEN-THEN`.
 - Every story and sub-story cites the `architecture/` chapter/component it traces to.
+
+> Note: ROVER-STORY-011 to 015 are intentionally left in the backlog and are outside the scope of this exercise. All 3 core stories (100% of the Pareto core) and 7 supporting stories are written and approved.

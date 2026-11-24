@@ -17,7 +17,7 @@
 | ROVER-STORY-008 | Supporting 80% | Approved |
 | ROVER-STORY-009 | Backlog (optional) | Approved |
 | ROVER-STORY-010 | Supporting 80% | Approved |
-| ROVER-STORY-011 … 015 | Supporting 80% / Backlog | Pending |
+| ROVER-STORY-011 … 015 | Supporting 80% / Backlog | Backlog |
 
 ---
 
@@ -530,8 +530,7 @@
 
 **Traceability:** [Ch. 8.5 Logging and Observability](../../architecture/08-cross-cutting-concepts.md), [Ch. 4.5.3 Basic logging](../../architecture/04-solution-strategy.md), [Ch. 2.4 Zero Infrastructure](../../architecture/02-constraints.md).
 
-> **Events/notifications are not applicable** in the initial scope (Ch. 4.8.2 / Ch. 8.5 defer
-> telemetry publishing to a future extension). No event bus is introduced.
+> Telemetry events are covered separately in ROVER-INFRA-001.4; this story only covers optional console logging.
 
 ##### SCENARIO 1: Default output stays clean
 
@@ -573,6 +572,60 @@
 
 **THEN**
 * the reported final position and exit code are identical
+
+
+#### ROVER-INFRA-001.4 — Emit telemetry events for position updates and mission outcomes
+
+**AS A** Ground Control operator
+**I WANT** in-process telemetry events for position updates and mission outcomes
+**SO THAT** external monitoring can follow the rover's progress.
+
+**Traceability:** [Ch. 3.4.4 Ground Control & Telemetry](../../architecture/03-context-and-scope.md), [Ch. 8.5 Logging and Observability](../../architecture/08-cross-cutting-concepts.md), [Ch. 2.4 Zero Infrastructure](../../architecture/02-constraints.md).
+
+> Adapted to the architecture: there is no message broker. Events are in-process notifications written to the console (no external services).
+
+##### SCENARIO 1: Position update event after a successful move
+
+**Scenario ID**: ROVER-INFRA-001.4-S1
+
+**GIVEN**
+* Telemetry output is enabled
+* The rover is at (1, 2, N)
+
+**WHEN**
+* The rover successfully executes the command M
+
+**THEN**
+* A "PositionUpdated" event with position (1, 3) and heading N is emitted to the console
+
+##### SCENARIO 2: Mission outcome event on blocked move
+
+**Scenario ID**: ROVER-INFRA-001.4-S2
+
+**GIVEN**
+* Telemetry output is enabled
+* An obstacle is located directly in front of the rover
+
+**WHEN**
+* The rover attempts the command M
+
+**THEN**
+* A "MovementBlocked" event with the current position is emitted
+* The rover state remains unchanged
+
+##### SCENARIO 3: Events disabled by default
+
+**Scenario ID**: ROVER-INFRA-001.4-S3
+
+**GIVEN**
+* Telemetry output is not enabled
+
+**WHEN**
+* A command sequence is executed
+
+**THEN**
+* No telemetry events are emitted
+* Only the final position is printed
 
 ---
 
@@ -5870,4 +5923,4 @@
 
 ---
 
-*Status: process paused after ROVER-STORY-010 approval. Next bundle (not yet generated): ROVER-STORY-011 — Package the application for local deployment.*
+*Status: 10 core and supporting stories approved. ROVER-STORY-011 to 015 remain in the backlog (outside the scope of this exercise).*

@@ -1,7 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "sdp-course"
 version = "0.1.0"
 requires-python = ">=3.12"
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools]
+packages = ["mars_rover"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 [tool.black]
 line-length = 88
@@ -17,3 +30,6 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "N", "UP", "B", "SIM"]
+
+[tool.bandit]
+skips = ["B101"]

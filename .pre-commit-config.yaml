@@ -46,6 +46,12 @@ repos:
         language: system
         files: '\.puml$'
         pass_filenames: false
+      - id: docker-test
+        name: Docker tests
+        entry: bash scripts/hooks/docker-test.sh
+        language: system
+        pass_filenames: false
+        always_run: true
       - id: commit-msg-format
         name: Commit message format
         entry: scripts/hooks/check-commit-msg.sh

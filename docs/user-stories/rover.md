@@ -5923,4 +5923,77 @@
 
 ---
 
+---
+
+## ROVER-INFRA-011 (Docker-based INFRA, local deployment)
+
+> Deployment target is `docker build` + `docker run`. Tests run inside the container via `pytest`.
+> No AWS services (Lambda, DynamoDB, SAM, CloudFormation) are used.
+
+#### ROVER-INFRA-011.1 — Build and test the kata inside a Docker container
+
+**AS A** Course Student
+**I WANT** the project to build into a Docker image that runs the pytest suite by default
+**SO THAT** tests run identically on my machine and in CI.
+
+**Traceability:** [Ch. 7.4 Deployment Process](../../architecture/07-deployment-view.md), [Ch. 2.4 Zero Infrastructure](../../architecture/02-constraints.md), [Ch. 2.1 Minimal Dependencies](../../architecture/02-constraints.md).
+
+##### SCENARIO 1: The Dockerfile builds successfully
+
+**Scenario ID**: ROVER-INFRA-011.1-S1
+
+**GIVEN**
+* the repository contains a `Dockerfile`, `pyproject.toml` and the `mars_rover/` package
+* Docker is installed
+
+**WHEN**
+* `docker build -t kata-tests .` is run
+
+**THEN**
+* the build completes without errors
+* the image `kata-tests` is created
+
+##### SCENARIO 2: The test suite runs inside the container
+
+**Scenario ID**: ROVER-INFRA-011.1-S2
+
+**GIVEN**
+* the image `kata-tests` has been built
+
+**WHEN**
+* `docker run --rm kata-tests` is run
+
+**THEN**
+* pytest executes the full suite inside the container
+* all tests pass and the container exits with code `0`
+
+##### SCENARIO 3: Dependencies are installed correctly
+
+**Scenario ID**: ROVER-INFRA-011.1-S3
+
+**GIVEN**
+* `pyproject.toml` declares the `dev` extra with `pytest`
+
+**WHEN**
+* the image is built with `pip install -e ".[dev]"`
+
+**THEN**
+* `pytest` and the `mars_rover` package are importable inside the container
+* no dependency is installed outside `pyproject.toml`
+
+##### SCENARIO 4: Project structure supports pytest discovery
+
+**Scenario ID**: ROVER-INFRA-011.1-S4
+
+**GIVEN**
+* test files are named `tests/test_*.py`
+* `pyproject.toml` sets `testpaths = ["tests"]`
+
+**WHEN**
+* pytest runs in the container
+
+**THEN**
+* all test modules under `tests/` are discovered without extra arguments
+
+
 *Status: 10 core and supporting stories approved. ROVER-STORY-011 to 015 remain in the backlog (outside the scope of this exercise).*
